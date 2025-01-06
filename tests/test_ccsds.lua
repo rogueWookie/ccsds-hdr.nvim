@@ -1,5 +1,4 @@
 -- NOTE 
--- To run tests in this file ...
 -- lua require("plenary.test_harness").test_file("tests/test_ccsds.lua")
 
 describe("ccsds", function()
@@ -11,5 +10,12 @@ describe("ccsds", function()
     end)
     it("can call test2", function()
         require("ccsds-hdr").test2()
+    end)
+    it("can retreive keymaps and config", function()
+        local config = require("ccsds-hdr.config")
+        local maps = config.get_keymap()
+        local cfgs = config.get_config()
+        assert.equals(maps.test1, cfgs.keymaps.test1)
+        assert.equals(maps.test2, cfgs.keymaps.test2)
     end)
 end)
