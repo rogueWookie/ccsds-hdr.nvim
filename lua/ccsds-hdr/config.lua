@@ -21,8 +21,16 @@ function M.get(key)
         return {}
     end
 end
-function M.set(key, val) end
-function M.mrg(cfg, opt) end
+
+function M.mrg(cfg)
+    if not cfg or type(cfg) ~= "table" then
+        error("Invalid argument: 'cfg' must be a table")
+    end
+    M.cfg = vim.tbl_deep_extend("force", M.cfg, cfg or {})
+end
+
+function M.set(key, val)
+end
 
 -- module config function
 function M.setup(user_config) end
