@@ -33,6 +33,10 @@ function M.mrg(cfg)
 end
 
 -- module config function
-function M.setup(user_config) end
+function M.setup(user_config)
+    -- extend our config w/ users
+    M.mrg(user_config)
+    -- setup key maps
+end
 
 return M
