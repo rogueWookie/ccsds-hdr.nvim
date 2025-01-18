@@ -3,8 +3,16 @@ local M = {}
 
 M.cfg = {
     keymaps = {
-        test1 = {mode="n", lhs="<leader>ht1", opts={desc="ccsds-hdr test1"}},
-        test2 = {mode="n", lhs="<leader>ht2", opts={desc="ccsds-hdr test2"}},
+        test1 = {
+            mode="n", lhs="<leader>ht1", opts={
+                desc="ccsds-hdr test1"
+            }
+        },
+        test2 = {
+            mode="n", lhs="<leader>ht2", opts={
+                desc="ccsds-hdr test2"
+            }
+        },
     }
 }
 
@@ -14,22 +22,14 @@ function M.set_map(mode, lhs, rhs, opts) end
 
 -- config functions 
 function M.get(key)
-    local success, value = utils.is_valid_table_path(M.cfg, key)
-    if success then
-        return value
-    else
-        return {}
-    end
+    assert(type(key) == "string", "Invalid argument: 'key' must be a string")
+    return utils.is_valid_table_key(M.cfg, key)
 end
 
 function M.mrg(cfg)
-    if not cfg or type(cfg) ~= "table" then
-        error("Invalid argument: 'cfg' must be a table")
-    end
+    assert(type(cfg) == "table", "Invalid argument: 'cfg' must be a table")
     M.cfg = vim.tbl_deep_extend("force", M.cfg, cfg or {})
-end
-
-function M.set(key, val)
+    return M.cfg
 end
 
 -- module config function
